@@ -118,7 +118,7 @@ IIFE's were used to avoid global variable issues.
 })();
 
 var funcOne = function() {
-
+  
 };
 
 ```
