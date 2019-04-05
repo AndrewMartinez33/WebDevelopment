@@ -107,18 +107,203 @@ console.log(word); // word is not defined
 ```
 
 # IIFE - Immediately Invoked Function Expression
-IIFE's were used to avoid global variable issues. 
+IIFE's were used to avoid global variable issues, like namespace collision.
 
 ```js
 // with the first opening parentheses javascript doesn't see the function keyword, so this becomes function expression
 // then we create an anonymous function and immediately call it with the final pair of parenthesis.
 // no global property is created and everything inside of the function scope is private
 (function(){
-  // something here
+  // everything in here is only available within this IIFE
 })();
 
 var funcOne = function() {
-  
+  // b & c are in the local scope
+  var b = console.log('hello');
+  var c = console.log('goodbye');
+  // b and c are private, but by returning this object it exposes these function for us to use as shown below.
+  return {
+    b: b,
+    c: c
+  }
 };
+
+funcOne.b; // hello
+funcOne.c; // goodbye
+
+```
+
+# this Keyword
+'this' is the object that the function is a property of.
+
+The two main benefits of the 'this' keyword
+* gives methods access to their object, and therefore access to their sibling properties and methods.
+* we can execute the same code for multiple objects.
+
+```js
+// obj1 has some function and within that function we have access to the 'this' keyword, which refers specifically to obj1
+obj1.someFunc(this)
+
+// obj2 has some function and within that function we have access to the 'this' keyword, which refers specifically to obj2
+obj2.someFunc(this)
+
+// the 'this' keyword gives methods access to their object, and therefore access to their sibling properties and methods.
+const obj3 = {
+  name: 'Andrew',
+  sing() {
+    // we can use the 'this' keyword to access name within obj3. 'obj3.name' would not work here.
+    return `la la la ${this.name}`;
+  }
+  singLouder() {
+    // we can also use 'this' to practice DRY coding.
+    return `${this.sing()}!!!!!!!`;
+  }
+}
+
+obj3.sing(); // la la la Andrew
+obj3.singLouder(); // la la la Andrew!!!!!!!
+
+// the 'this' keyword allows us to execute the same code for multiple objects.
+function importantPerson() {
+  console.log(this.name);
+}
+
+// this variable is defined in the global scope
+const name = 'Sunny';
+
+// both obj4 and obj5 use the same importantPerson function
+const obj4 = {
+  name: 'Andrew',
+  importantPerson: importantPerson
+}
+
+const obj5 = {
+  name: 'Jessica',
+  importantPerson: importantPerson
+}
+
+// calling the function on its own, 'this' refers to the global or window object
+importantPerson(); // Sunny
+
+// calling the same function from obj4, 'this' refers to obj4 not the global object
+obj4.importantPerson(); // Andrew
+
+// calling the same function from obj5, 'this' refers to obj5 not the global object
+obj4.importantPerson(); // Jessica
+
+```
+
+# The issue with 'this'
+Everything in JavaScript is lexically scoped. Where we write it determines what we have available. Except for the 'this' keyword. 'this' is dynamically scoped, meaning how the function is called determines what is available.
+
+We can fix this issue with Arrow Functions because arrow functions are lexically bound.
+
+```js
+const obj ={
+  name: 'Andrew',
+  sing() {
+    console.log('a', this);
+    var anotherFunc = function() {
+      console.log('b', this);
+    }
+    anotherFunc();
+  }
+}
+
+// obj calls the sing method and sing calls the anotherFunc method. Since obj never called anotherFunc(), the 'this' keyword defaults to the window object. 
+obj.sing();
+// a {obj}
+// b {window}
+```
+
+Here we use the arrow function
+
+```js
+const obj1 ={
+  name: 'Andrew',
+  sing() {
+    console.log('a', this);
+    // the arrow function lexically binds 'this' in anotherFunc to obj1
+    var anotherFunc = () => {
+      console.log('b', this);
+    }
+    anotherFunc();
+  }
+}
+
+// because we use the arrow function, 'this' in both methods now reference obj1 
+obj.sing();
+// a {obj1}
+// b {obj1}
+
+```
+
+# call() apply() bind()
+We can use call and apply to borrow methods
+
+```js
+const wizard = {
+  name: 'Merlin',
+  health: 50,
+  heal() {
+    console.log(this.health);
+    this.health = 100;
+    console.log(this.health);
+  }
+}
+
+const archer = {
+  name: 'Robin',
+  health: 30,
+}
+
+wizard.heal();
+// Merlin 50
+// Merlin 100
+
+// we can use call to borrow the heal method from wizard and use it on archer. 
+wizard.heal.call(archer);
+// Robin 30
+// Robin 100
+
+// we can use call to borrow the heal method from wizard and use it on archer. 
+wizard.heal.apply(archer);
+// Robin 30
+// Robin 100
+
+// call and apply do the exact same thing and both can also take in parameter/arguments. The difference is that call takes in comma separated arguments and apply takes in an array of arguments to pass to the method 
+wizard.heal.call(archer, argument1, argument2);
+wizard.heal.apply(archer, [argument1, argument2]);
+```
+
+Like call() and apply(), bind() allows us to borrow methods. But unlike call() and apply() we cannot run the method right away. Instead, bind returns a function or 'this' to store for later use.
+
+```js
+
+const wizard = {
+  name: 'Merlin',
+  health: 50,
+  heal() {
+    console.log(this.health);
+    this.health = 100;
+    console.log(this.health);
+  }
+}
+
+const archer = {
+  name: 'Robin',
+  health: 30,
+}
+
+// bind return the heal method with 'this' referencing archer, but it never calls it. 
+wizard.heal.bind(archer);
+// Robin 30
+// Robin 30
+
+// bind allows us to store the heal method referencing archer in a variable. Then we can call healArcher.
+const healArcher = wizard.heal.bind(archer);
+healArcher();
+// Robin 30
+// Robin 100
 
 ```
