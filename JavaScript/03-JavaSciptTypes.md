@@ -125,3 +125,7 @@ JSON.stringify(obj1) === JSON.stringify(obj2)
 // x = {a: 1, b: 2};
 // y = {b: 2, a: 1};
  ```
+
+ # Type Coercion
+ Type coercion happens when you use the == operator and you have two differes types of operands.
+ We should always use === because there is no type coercion.
