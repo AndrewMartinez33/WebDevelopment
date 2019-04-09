@@ -590,7 +590,7 @@ const teacher = new Teacher("Andrew", "Bachelors");
 # The DOM
 ```js
 // It is important to CACHE selectors in variables
-let element = document.querySelector('h1');
+let element = document.querySelector('#Id');
 
 let element = document.getElementsByTagName('tag')
 let element = document.getElementsByClassName('class')
@@ -598,25 +598,45 @@ let element = document.getElementById('id')
 
 let element = document.querySelector('#id')
 let element = document.querySelector('.class')
+let element = document.querySelector('tag')
 
 let element = document.querySelectorAll('#id')
 let element = document.querySelectorAll('.class')
+let element = document.querySelectorAll('tag')
+
+// returns the DOM node's parent Element, or null if the node either has no parent, or its parent isn't a DOM Element.
+let parentElement = node.parentElement
+
+// returns the parent of the specified node in the DOM tree.
+let parentNode = node.parentNode
+
+// returns first child of the node or null 
+let childNode = node.firstChild
+
+// returns last child of the node or null
+let childNode = node.lastChild
+
+// returns NodeList of child nodes of the given element
+let nodeList = elementNodeReference.childNodes
+
+// returns the node immediately following the specified one in their parent's childNodes, or returns null if the specified node is the last child in the parent element.
+let nextNode = node.nextSibling
+
+// returns the node immediately preceding the specified one in its parent's childNodes list, or null if the specified node is the first in that list.
+let previousNode = node.previousSibling
 
 
-// NEED
-// NEED
-// NEED
-// NEED
-getting parent elements and children
-
-
-
-
+// returns the value of the attribute
 element.getAttribute('elementAttribute')
-element.setAttribute()
+// sets the value of the 
+element.setAttribute('attributeName','attributeValue')
+// returns true if attribute exists
+element.hasAttribute('attributeName')
+// removes the specified atrribute
+element.removeAttribute('attributeName')
 
-//ok, but use class instead. see below
-element.style.property =  
+// set the value of a style property
+element.style.CSSproperty = 'value' 
 
 // Adds the specified class values. If these classes already exist in the element's class attribute they are ignored.
 element.classList.add( 'ClassName1', 'ClassNameN')
@@ -627,27 +647,337 @@ element.classList.remove( 'ClassName1', 'ClassNameN')
 // Removes a given class from the list and returns false. If class doesn't exist it's added and the function returns true.
 element.classList.toggle('class')
 
+// returns an iterator for the classList to use with the 'for of' loop
 element.classList.entries()
-element.classList.forEach()
+
+// calls the callback function once for each value pair in the list, in insertion order. listObj is the array that forEach is being applied to.
+element.classList.forEach((currValue, currIndex, listObj) => {
+  console.log(currValue, currIndex);
+})
+
+// returns an iterator of all the keys contained in the object
 element.classList.keys()
+
+// returns an iterator of all the key value pairs in the object
 element.classList.values()
-element.classList.contains()
-element.classList.replace()
+
+// returns true is the list contains the given class
+element.classList.contains('className')
+
+// returns true if replaced successfully
+element.classList.replace('oldClass', 'newClass')
 
 
-// NEED
-// NEED
-// NEED
-// NEED
-innerHTML
-createElement
-Create TextNode
-appendChild
+// returns the new element 
+let newElement = document.createElement('htmlTag');
+
+// returns text node object
+let newTextNode = document.createTextNode('data');
+
+// appends a node as the last child of a node
+newElement.appendChild(newTextNode);
+
+// append at the beginning of the node
+newElement.insertBefore(newTextNode, newElement.childNodes[0]);
+
+// Get HTML content
+var html = elem.innerHTML;
+
+// Set HTML content. Replaces all the content.
+elem.innerHTML = 'We can dynamically change the HTML. We can even include HTML elements like <a href="#">this link</a>.';
+
+// Add HTML to the end of an element's existing content
+elem.innerHTML += ' Add this after what is already there.';
+
+// Add HTML to the beginning of an element's existing content
+elem.innerHTML = 'We can add this to the beginning. ' + elem.innerHTML;
+
+// Get text content
+var text = elem.textContent;
+
+// Set text content
+elem.textContent = 'We can dynamically change the content.';
+
+// Add text to the end of an element's existing content
+elem.textContent += ' Add this after what is already there.';
+
+// Add text to the beginning of an element's existing content
+elem.textContent = 'We can add this to the beginning. ' + elem.textContent;
+
+
+// innerHTML vs textContent vs innerText vs nodeValue
+innerHTML   // parses content as HTML, so it takes longer.
+nodeValue   // uses straight text, does not parse HTML, and is faster.
+textContent // uses straight text, does not parse HTML, and is faster.
+innerText   // takes styles into consideration. It won't get hidden text for instance.
+```
+
+# JSON
+## Data types that can be used with JSON
+* Number: no difference between integer and float
+* String: string of Unicode characters. Use "DOUBLE" quotes
+* Boolean: true or false
+* Array: ordered list of 0 or more values
+* Object: unordered collection of key/value pairs
+* Null: empty value
+
+## Syntax Rules
+* Uses key/value pairs - {"name" : "Andrew"}
+* Uses double quotes around key and value
+* Must use data types specified above
+* File type is ".json"
+* MIME type is "Application/json"
+
+## JSON Example
+```js
+
+let person = {
+  "Name":"Andrew Martinez",
+  "Age": 30,
+  "Address": {
+    "Street": "4100 Road St.",
+    "City": "Los Angeles"
+  },
+  "Children": ["Ethan","Anya"]
+}
+
+// turns JS object into a properly formatted JSON object
+let jsonObject = JSON.stringify(person);
+
+// turns a JSON object into a JS object
+let jsObject = JSON.parse(jsonObject);
+```
+
+## JSON file
+remember: file type is .json
+File: people.json
+```json
+{
+  "people": [
+    {
+      "Name": "Andrew",
+      "Age": 30
+    },
+    {
+      "Name": "Jessica",
+      "Age": 31
+    },
+    {
+      "Name": "Jorge",
+      "Age": 32
+    }
+  ]
+}
+```
+
+## Making a Request to a JSON File
+```js
+let xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+  if (this.readyState = 4 && this.status == 200) {
+
+    // the response is stored in xhttp.responseText
+    // we use JSON.parse() to turn the JSON object into a JS object we can work with.
+    let response = JSON.parse(xhttp.responseText);
+    
+    // Your code here. Do whatever you want with the data
+    console.log(response);
+  }
+};
+
+// we want to make a GET request to a specific json file and send the request
+xhttp.open("GET", "jsonFileURL.json", true);
+xhttp.send();
 ```
 
 
-# JSON
-
 # AJAX
+## What is Ajax?
+* Asynchronous JavaScript And XML
+* It is a set of technologies to send and receive data from a client to a server asynchronously
+* Does not interfere with the current web page
+* JSON has replaced XML for the most part
 
+## XmlHttpRequest (XHR) Object
+* API in the form of an object, meaning it has properties and methods
+* Provided by the browser's JS environment
+* Methods transfer data between client and server
+* Can be used with protocols other than HTTP
+* Can work with data other than XML (JSON, plain text)
 
+## Libraries and Other Methods to Make Ajax Calls
+* jQuery
+* Axios
+* Superagent
+* Fetch API
+* Prototype
+* Node HTTP
+
+## Example 1: Ajax Reuest to a Text File
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ajax Request to Text File</title>
+</head>
+<body>
+  <button id="button">Get Text File</button>
+  <p id="text"></p>
+
+  <script>
+    // create event listener
+    document.querySelector('#button').addEventListener('click', loadText);
+
+    function loadText() {
+      // Create XHR object
+      let xhr = new XMLHttpRequest();
+      
+      // OPEN - type, url/file name, async
+      xhr.open("GET", 'sample.txt', true);
+
+      // this runs at ReadyState 3. It is optional, but can be used for loader, like the rainbow wheel.
+      xhr.onprogress = function () {
+        console.log('loading...')
+      }
+
+      // we an also use xhr.onreadystatechange but then you have to check that this.readyState == 4 && this.status == 200
+      xhr.onload = function () {
+        // check that the response status is 'OK' before we do anything else.
+        if (this.status == 200) {
+          // responseText is where the response is stored. In this case, the text in the file.
+          document.querySelector('#text').innerHTML = this.responseText;
+        }
+      }
+
+      // if you are using onload, you can use xhr.onerror to catch errors
+      xhr.onerror = function () {
+        console.log('Request error...')
+      }
+
+      // we need to send to get anything back
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
+```
+## Example 2 - Ajax request to a local JSON file
+---
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ajax Request to Local JSON File</title>
+</head>
+<body>
+  <button id="button1">Get User</button>
+  <button id="button2">Get Users</button>
+  <br />
+  <br />
+  <h1>User</h1>
+  <div id="user"></div>
+  <h1>Users</h1>
+  <div id="users"></div>
+
+  <script>
+    document.querySelector('#button1').addEventListener('click', loadUser);
+
+    document.querySelector('#button2').addEventListener('click', loadUsers);
+
+    function loadUser() {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'user.json', true)
+      xhr.onload = function () {
+        if (this.status == 200) {
+          let user = JSON.parse(this.responseText);
+          let output = `
+          <ul>
+            <li>Id: ${user.id}</li>
+            <li>Name: ${user.name}</li>
+            <li>Email: ${user.email}</li>
+          <ul>`;
+          document.querySelector('#user').innerHTML = output;
+        }
+      }
+      xhr.send();
+    }
+    function loadUsers() {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'users.json', true)
+      xhr.onload = function () {
+        if (this.status == 200) {
+          let users = JSON.parse(this.responseText);
+          let output = '';
+
+          for (let i in users) {
+            output += `<ul>
+            <li>Id: ${users[i].id}</li>
+            <li>Name: ${users[i].name}</li>
+            <li>Email: ${users[i].email}</li></ul>`;
+          }
+
+          document.querySelector('#users').innerHTML = output;
+        }
+      }
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
+```
+
+## Example 3 - Ajax request to external API
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ajax Request to External API</title>
+</head>
+<body>
+  <button id="button">Load Github Users</button>
+  <br /><br />
+  <h1>Github Users</h1>
+  <div id="users"></div>
+
+  <script>
+    document.querySelector('#button').addEventListener('click', loadUsers);
+
+    function loadUsers() {
+      let xhr = new XMLHttpRequest();
+
+      xhr.open('GET', 'https://api.github.com/users', true);
+
+      xhr.onload = function () {
+        if (this.status == 200) {
+          let users = JSON.parse(this.responseText);
+          let output = '';
+          for (var i in users) {
+            output += `
+              <div>
+                <img src="${ users[i].avatar_url}  width="70" height="70">
+                <ul>
+                  <li>Id: ${ users[i].id} </li>
+                  <li>Id: ${ users[i].login} </li>
+                </ul>
+              </div>`;
+          }
+          document.querySelector('#users').innerHTML = output;
+        }
+      }
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
+```
+
+# Fetch API
