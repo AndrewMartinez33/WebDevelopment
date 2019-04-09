@@ -54,11 +54,40 @@ Array.splice()
 Array.toString()
 Array.unshift()
 
-Array.filter()
-Array.map()
-Array.reduce()
+
 Array.sort()
+// By default, the sort() function sorts values as strings. This works well for strings ("Apple" comes before "Banana"). However, if numbers are sorted as strings, "25" is bigger than "100", because "2" is bigger than "1". Because of this, the sort() method will produce incorrect result when sorting numbers. You can fix this by providing a compare function:
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+// sort stings ascending
+fruits.sort();
+// use Array.reverse after sort to get descending order
+fruits.reverse();
+
+let points = [40, 100, 1, 5, 25, 10];
+// numerical sort ascending
+points.sort((a, b) => return a - b);
+// numerical sort descending
+points.sort((a, b) => return b - a);
+
+
+Array.map()
+// Use map over forEach a return is required map creates a newArray (mapArray in this case) based on the return. With forEach you wouldnt be creating a new array unless you are pushing to a new array.
+const mapArray = someArray.map(num => num * 2);
+
+
+Array.filter()
+// filter this array, as you are going one by one filter those that are > than 5. If it returns true then it goes into the new array.
+// A return is required.
+const filterArray = someArray.filter(num => num > 5);
+
+
+Array.reduce()
+// Reduce take an accumulator and the number in the array. Accumulator stores the return from each iteration of the array. 5 is a second parameter that specifies where we want the accumulator to start from. At the end it returns the value of the accumulator.
+const reduceArray = someArray.reduce((accumulator, num) => {
+  return accumulator + num;
+}, 5);
 ```
+
 
 # Objects
 Objects are collections of key-value pairs.
@@ -388,20 +417,104 @@ Date.getSeconds();
 // returns milliseconds since Jan 1, 1970, 00:00:00.000 GMT
 Date.getTime();
 
-Date.setDate();
-Date.setDay();
-Date.setFullYear();
-Date.setHours();
-Date.setMilliseconds();
-Date.setMinutes();
-Date.setMonth();
-Date.setSeconds();
-Date.setTime();
+
+Date.setDate();          // day as a number (1-31)
+Date.setFullYear();      // year (optionally month and day)
+Date.setHours();         // hour (0-23)
+Date.setMilliseconds();  // milliseconds (0-999)
+Date.setMinutes();       // minutes (0-59)
+Date.setMonth();         // month (0-11)
+Date.setSeconds();       // seconds (0-59)
+Date.setTime();          // milliseconds since 1970)
 ```
 
-# Numbers
+# Number()
+```js
+//Number() can be used to convert JavaScript variables to numbers:
+Number(true);          // returns 1
+Number(false);         // returns 0
+Number("10");          // returns 10
+Number("  10");        // returns 10
+Number("10  ");        // returns 10
+Number(" 10  ");       // returns 10
+Number("10.33");       // returns 10.33
+Number("10,33");       // returns NaN
+Number("10 33");       // returns NaN 
+Number("John");        // returns NaN
+
+
+let num = 3.141;
+// returns string representing the number.
+// x is optional. x is the number of digits after the decimal point. 
+// Default is 0 (no digits after the decimal point)
+num.toFixed(x);
+
+// returns string representing the number.
+// formats a number to a specified length.
+// x is optional. x is the number of digits. If omitted, it returns the entire number (without any formatting)
+num.toPrecision(x)
+
+// returns the primitive value of a number.
+num.valueOf();
+
+
+
+Number.MAX_VALUE        // largest possible JS number
+Number.MIN_VALUE        // smallest possible JS number
+Number.NEGATIVE_INFINITY// -Infinity
+Number.POSITIVE_INFINITY// Infinity
+
+parseFloat("10")			  // 10
+parseFloat("10.00")		  // 10
+parseFloat("10.33")		  // 10.33
+parseFloat("34 45 66")	// 34
+parseFloat("   60   ")	// 60
+parseFloat("40 years") 	// 40
+parseFloat("He was 40") // NaN
+
+parseInt("10")		      // 10
+parseInt("10.00")		    // 10
+parseInt("10.33")		    // 10
+parseInt("34 45 66")	  // 34
+parseInt("   60   ")	  // 60
+parseInt("40 years")	  // 40
+parseInt("He was 40")	  // NaN
+parseInt("10", 10)	    // 10
+parseInt("010")		      // 10
+parseInt("10", 8)		    // 8
+parseInt("0x10")		    // 16
+parseInt("10", 16)	    // 16
+
+```
 
 # Math
+```js
+var pi = Math.PI;       // 3.141592653589793
+Math.round(4.4);        // = 4 - rounded
+Math.round(4.5);        // = 5
+Math.pow(2,8);          // = 256 - 2 to the power of 8
+Math.sqrt(49);          // = 7 - square root 
+Math.abs(-3.14);        // = 3.14 - absolute, positive value
+Math.ceil(3.14);        // = 4 - rounded up
+Math.floor(3.99);       // = 3 - rounded down
+Math.sin(0);            // = 0 - sine
+Math.cos(Math.PI);      // OTHERS: tan,atan,asin,acos,
+Math.min(0, 3, -2, 2);  // = -2 - the lowest value
+Math.max(0, 3, -2, 2);  // = 3 - the highest value
+Math.log(1);            // = 0 natural logarithm 
+Math.exp(1);            // = 2.7182pow(E,x)
+Math.random();          // random number between 0 and 1
+Math.floor(Math.random() * 5) + 1;  // random integer, from 1 to 5
+
+Math.E        // returns Euler's number
+Math.PI       // returns PI
+Math.SQRT2    // returns the square root of 2
+Math.SQRT1_2  // returns the square root of 1/2
+Math.LN2      // returns the natural logarithm of 2
+Math.LN10     // returns the natural logarithm of 10
+Math.LOG2E    // returns base 2 logarithm of E
+Math.LOG10E   // returns base 10 logarithm of E
+```
 
 
 # Classes
@@ -473,4 +586,68 @@ class Teacher extends Person {
 
 const teacher = new Teacher("Andrew", "Bachelors");
 ```
+
+# The DOM
+```js
+// It is important to CACHE selectors in variables
+let element = document.querySelector('h1');
+
+let element = document.getElementsByTagName('tag')
+let element = document.getElementsByClassName('class')
+let element = document.getElementById('id')
+
+let element = document.querySelector('#id')
+let element = document.querySelector('.class')
+
+let element = document.querySelectorAll('#id')
+let element = document.querySelectorAll('.class')
+
+
+// NEED
+// NEED
+// NEED
+// NEED
+getting parent elements and children
+
+
+
+
+element.getAttribute('elementAttribute')
+element.setAttribute()
+
+//ok, but use class instead. see below
+element.style.property =  
+
+// Adds the specified class values. If these classes already exist in the element's class attribute they are ignored.
+element.classList.add( 'ClassName1', 'ClassNameN')
+
+// Removes the specified class values.
+element.classList.remove( 'ClassName1', 'ClassNameN')
+
+// Removes a given class from the list and returns false. If class doesn't exist it's added and the function returns true.
+element.classList.toggle('class')
+
+element.classList.entries()
+element.classList.forEach()
+element.classList.keys()
+element.classList.values()
+element.classList.contains()
+element.classList.replace()
+
+
+// NEED
+// NEED
+// NEED
+// NEED
+innerHTML
+createElement
+Create TextNode
+appendChild
+```
+
+
+# JSON
+
+# AJAX
+
 
