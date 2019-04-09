@@ -123,16 +123,142 @@ console.log(phone); //unknown
 ```
 
 # Loops
+```js
+// FOR LOOP
+for (initial expression; condition; incrementExpression) {
+  statements
+}
+for (let i = 0; i < 10; i++) {
+  some code;
+}
+
+// WHILE LOOP
+while (condition) {
+  statements;
+}
+
+// DO WHILE LOOP
+// runs code before checking condition
+do {
+  statements
+} while (condition);
+
+// FOR IN LOOP
+// iterates over keys
+for (variable in object) {
+  statements
+}
+
+// FOR OF LOOP
+// iterates over values
+for (variable of object) {
+  statements
+}
+
+// BREAK
+// breaks out of innermost loop
+for (variable of object) {
+  break;
+}
+
+// CONTINUE
+// terminates the current loop iteration and continues the next iteration
+for (variable of object) {
+  continue;
+}
+
+// NOTE: In JavaScript, Objects are not iterable unless they implement the iterable protocol. Therefore, you cannot use for…of to iterate over the properties of an object. Instead you have to use Object.keys or Object.entries, to iterate over the properties or entries of an object.
+```
+
+
+# Iterators & Generators
+In JavaScript, Objects are not iterable unless they implement the iterable protocol. Therefore, you cannot use for…of to iterate over the properties of an object. Instead you have to use Object.keys or Object.entries, to iterate over the properties or entries of an object.
+
+
+
 
 # Functions
 ```js
+// FUNCTION DECLARATION
+function functionName(parameters){
+  statements;
+  return;
+}
+
+
+// FUNCTION EXPRESSION
+// anonymous function
+let functionName = function(parameters) {
+  statements;
+  return
+};
+
+
+// ARROW FUNCTIONS
+// A cleaner, simpler way of writing functions in ES6
+
+// Arrow Function Syntax
+(param, param) => { some code; };
+
+// The Old Way
+const funcName = function(parameter) {
+  return parameter + parameter;
+}
+
+// The New Way
+const funcName = (parameter) => { return parameter + parameter; };
+
+// But if you have ONLY ONE parameter you can omit the parenthesis
+const funcName = parameter => { return parameter + parameter; };
+
+// If the body of the function only includes a SINGLE LINE and a RETURN, we can simplify even further by omiting the curly braces, return keyword, and semi-colon.
+const funcName = parameter => parameter + parameter;
+
+// If you have no parameters, use empty parenthesis
+const funcName = () => some code;
+
+
+
+// DEFAULT PARAMETERS
 // you can give parameters default values
 function funcName(name='Andrew', age=33) {
     console.log(`My name is ${name}, I am ${age} years old.`);
 }
-
 // this will pass the default parameters to console.log
 funcName(); 
+
+
+
+// REST PARAMETERS
+// collects all remaining elements into an array. Rest parameters have to be the last argument. This is because it collects all remaining/ excess arguments into an array.
+
+// This function call returns 3, this is because in Javascript it is possible to call a function with any number of arguments. However, only the fist two arguments will be counted.
+function add(x, y) { return x + y; }
+add(1, 2, 3, 4, 5) // returns 3
+
+// With rest parameters we can gather any number of arguments into an array and do what we want with them. So we can re-write the add function like this:
+function add(...args) {
+  let result = 0;
+  for (let arg of args){
+    result += arg;
+  } 
+  return result
+}
+add(1,2) // returns 3
+add(1, 2, 3, 4, 5) // returns 15
+
+// We can separately define the first arguments, and the rest of the arguments in the function call (no matter how many they are) will be collected into an array by the rest parameter.
+function xyz(x, y, ...z) {
+  console.log(x, ' ', y);
+  console.log(z);
+  console.log(z[0]);
+  console.log(z.length);
+}
+xyz("hey", "hello", "wassup", "goodmorning", "hi", "howdy")
+// hey hello
+// ["wassup", "goodmorning", "hi", "howdy"]
+// wassup
+// 4
 
 
 
@@ -163,6 +289,7 @@ const newCurry = curriedMultiply(5);
 newCurry(6); // returns 30.
 
 
+
 // COMPOSE
 // is the act of putting two functions together to form a third function where the output of one function in the input of the other.
 
@@ -181,31 +308,6 @@ const sum = (num) => num + 1;
 // the f(6) runs and returns 7
 // so the result is 7
 compose(sum, sum)(5);
-```
-
-# Arrow Functions
-A cleaner, simpler way of writing functions in ES6
-
-```js
-// Arrow Function Syntax
-(param, param) => { some code; };
-
-// The Old Way
-const funcName = function(parameter) {
-  return parameter + parameter;
-}
-
-// The New Way
-const funcName = (parameter) => { return parameter + parameter; };
-
-// But if you have ONLY ONE parameter you can omit the parenthesis
-const funcName = parameter => { return parameter + parameter; };
-
-// If the body of the function only includes a SINGLE LINE and a RETURN, we can simplify even further by omiting the curly braces, return keyword, and semi-colon.
-const funcName = parameter => parameter + parameter;
-
-// If you have no parameters, use empty parenthesis
-const funcName = () => some code;
 ```
 
 # Spread Operator
@@ -250,9 +352,6 @@ const obj3 = { ...obj1, ...obj2, email: 'andrew@email.com' };
 const obj4 = { ...obj3 };
 ```
 
-# Rest Operator
-
-# Iterators and Generators
 
 # Dates
 ```js
