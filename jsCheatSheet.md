@@ -1,4 +1,5 @@
 # Strings
+
 ```js
 // concats arguments to the calling string, returns a new string.
 String.concat('string1', 'stringN')
@@ -26,10 +27,22 @@ String.toLowerCase()
 
 // Converts string to all lower case letters
 String.toUpperCase()
+
+// ESCAPE SEQUENCES
+\'	single quote
+\"	double quote
+\\	backslash
+\n	newline
+\r	carriage return
+\t	tab
+\b	backspace
+\f	form feed
+
+
 ```
 
-
 # Arrays
+
 ```js
 // Remember that arrays are objects, therefore they are passed by reference. To create a new array from another array:
 let arr1 = [1, 2, 3];
@@ -88,9 +101,10 @@ const reduceArray = someArray.reduce((accumulator, num) => {
 }, 5);
 ```
 
-
 # Objects
+
 Objects are collections of key-value pairs.
+
 ```js
 const person = {
   name: 'Andrew',
@@ -122,6 +136,7 @@ Object.values(object)
 ```
 
 # Object Destructuring
+
 Destructuring allows us to extract data from arrays, objects, maps and sets into their own variable.
 
 ```js
@@ -152,6 +167,7 @@ console.log(phone); //unknown
 ```
 
 # Loops
+
 ```js
 // FOR LOOP
 for (initial expression; condition; incrementExpression) {
@@ -199,14 +215,12 @@ for (variable of object) {
 // NOTE: In JavaScript, Objects are not iterable unless they implement the iterable protocol. Therefore, you cannot use for…of to iterate over the properties of an object. Instead you have to use Object.keys or Object.entries, to iterate over the properties or entries of an object.
 ```
 
-
 # Iterators & Generators
+
 In JavaScript, Objects are not iterable unless they implement the iterable protocol. Therefore, you cannot use for…of to iterate over the properties of an object. Instead you have to use Object.keys or Object.entries, to iterate over the properties or entries of an object.
 
-
-
-
 # Functions
+
 ```js
 // FUNCTION DECLARATION
 function functionName(parameters){
@@ -254,7 +268,7 @@ function funcName(name='Andrew', age=33) {
     console.log(`My name is ${name}, I am ${age} years old.`);
 }
 // this will pass the default parameters to console.log
-funcName(); 
+funcName();
 
 
 
@@ -270,7 +284,7 @@ function add(...args) {
   let result = 0;
   for (let arg of args){
     result += arg;
-  } 
+  }
   return result
 }
 add(1,2) // returns 3
@@ -296,6 +310,7 @@ xyz("hey", "hello", "wassup", "goodmorning", "hi", "howdy")
 
 const multiply = (a, b) => a * b;
 
+
 // the curried version. think of it as a function within a function.
 const curriedMultiply = (a) => (b) => a * b;
 
@@ -304,7 +319,7 @@ curriedMultiply(3)(4); //would return 12
 
 // if you only only supply one argument
 // it would return a function
-curriedMultiply(3); // would return (b) => a*b;
+curriedMultiply(3); // would return (b) => 3*b;
 
 // but why use this? it makes things more extensible.
 //  you could use curriedMultiply() to create another function.
@@ -323,7 +338,7 @@ newCurry(6); // returns 30.
 // is the act of putting two functions together to form a third function where the output of one function in the input of the other.
 
 // parameters 'f' and 'g' return a function that takes parameter 'a'
-// parameter 'a' returns function 'f' that takes a parameter, function 'g', which takes in parameter a. 
+// parameter 'a' returns function 'f' that takes a parameter, function 'g', which takes in parameter a.
 const compose = (f,g) => (a) => f(g(a));
 
 // now lets do something with it
@@ -340,6 +355,7 @@ compose(sum, sum)(5);
 ```
 
 # Spread Operator
+
 The spread operator allows an iterable to expand in places where 0+ arguments are expected. Huh? Let's look at some examples:
 
 ```js
@@ -381,11 +397,11 @@ const obj3 = { ...obj1, ...obj2, email: 'andrew@email.com' };
 const obj4 = { ...obj3 };
 ```
 
-
 # Dates
+
 ```js
-let event = new Date('December 17, 1995 03:24:00');
-let event2 = new Date('1995-12-17T03:24:00');
+let event = new Date("December 17, 1995 03:24:00");
+let event2 = new Date("1995-12-17T03:24:00");
 
 // returns the number of milliseconds elapsed since January 1, 1970 00:00:00 UTC.
 let event3 = Date.now();
@@ -417,107 +433,104 @@ Date.getSeconds();
 // returns milliseconds since Jan 1, 1970, 00:00:00.000 GMT
 Date.getTime();
 
-
-Date.setDate();          // day as a number (1-31)
-Date.setFullYear();      // year (optionally month and day)
-Date.setHours();         // hour (0-23)
-Date.setMilliseconds();  // milliseconds (0-999)
-Date.setMinutes();       // minutes (0-59)
-Date.setMonth();         // month (0-11)
-Date.setSeconds();       // seconds (0-59)
-Date.setTime();          // milliseconds since 1970)
+Date.setDate(); // day as a number (1-31)
+Date.setFullYear(); // year (optionally month and day)
+Date.setHours(); // hour (0-23)
+Date.setMilliseconds(); // milliseconds (0-999)
+Date.setMinutes(); // minutes (0-59)
+Date.setMonth(); // month (0-11)
+Date.setSeconds(); // seconds (0-59)
+Date.setTime(); // milliseconds since 1970)
 ```
 
 # Number()
+
 ```js
 //Number() can be used to convert JavaScript variables to numbers:
-Number(true);          // returns 1
-Number(false);         // returns 0
-Number("10");          // returns 10
-Number("  10");        // returns 10
-Number("10  ");        // returns 10
-Number(" 10  ");       // returns 10
-Number("10.33");       // returns 10.33
-Number("10,33");       // returns NaN
-Number("10 33");       // returns NaN 
-Number("John");        // returns NaN
-
+Number(true); // returns 1
+Number(false); // returns 0
+Number("10"); // returns 10
+Number("  10"); // returns 10
+Number("10  "); // returns 10
+Number(" 10  "); // returns 10
+Number("10.33"); // returns 10.33
+Number("10,33"); // returns NaN
+Number("10 33"); // returns NaN
+Number("John"); // returns NaN
 
 let num = 3.141;
 // returns string representing the number.
-// x is optional. x is the number of digits after the decimal point. 
+// x is optional. x is the number of digits after the decimal point.
 // Default is 0 (no digits after the decimal point)
 num.toFixed(x);
 
 // returns string representing the number.
 // formats a number to a specified length.
 // x is optional. x is the number of digits. If omitted, it returns the entire number (without any formatting)
-num.toPrecision(x)
+num.toPrecision(x);
 
 // returns the primitive value of a number.
 num.valueOf();
 
+Number.MAX_VALUE; // largest possible JS number
+Number.MIN_VALUE; // smallest possible JS number
+Number.NEGATIVE_INFINITY; // -Infinity
+Number.POSITIVE_INFINITY; // Infinity
 
+parseFloat("10"); // 10
+parseFloat("10.00"); // 10
+parseFloat("10.33"); // 10.33
+parseFloat("34 45 66"); // 34
+parseFloat("   60   "); // 60
+parseFloat("40 years"); // 40
+parseFloat("He was 40"); // NaN
 
-Number.MAX_VALUE        // largest possible JS number
-Number.MIN_VALUE        // smallest possible JS number
-Number.NEGATIVE_INFINITY// -Infinity
-Number.POSITIVE_INFINITY// Infinity
-
-parseFloat("10")			  // 10
-parseFloat("10.00")		  // 10
-parseFloat("10.33")		  // 10.33
-parseFloat("34 45 66")	// 34
-parseFloat("   60   ")	// 60
-parseFloat("40 years") 	// 40
-parseFloat("He was 40") // NaN
-
-parseInt("10")		      // 10
-parseInt("10.00")		    // 10
-parseInt("10.33")		    // 10
-parseInt("34 45 66")	  // 34
-parseInt("   60   ")	  // 60
-parseInt("40 years")	  // 40
-parseInt("He was 40")	  // NaN
-parseInt("10", 10)	    // 10
-parseInt("010")		      // 10
-parseInt("10", 8)		    // 8
-parseInt("0x10")		    // 16
-parseInt("10", 16)	    // 16
-
+parseInt("10"); // 10
+parseInt("10.00"); // 10
+parseInt("10.33"); // 10
+parseInt("34 45 66"); // 34
+parseInt("   60   "); // 60
+parseInt("40 years"); // 40
+parseInt("He was 40"); // NaN
+parseInt("10", 10); // 10
+parseInt("010"); // 10
+parseInt("10", 8); // 8
+parseInt("0x10"); // 16
+parseInt("10", 16); // 16
 ```
 
 # Math
-```js
-var pi = Math.PI;       // 3.141592653589793
-Math.round(4.4);        // = 4 - rounded
-Math.round(4.5);        // = 5
-Math.pow(2,8);          // = 256 - 2 to the power of 8
-Math.sqrt(49);          // = 7 - square root 
-Math.abs(-3.14);        // = 3.14 - absolute, positive value
-Math.ceil(3.14);        // = 4 - rounded up
-Math.floor(3.99);       // = 3 - rounded down
-Math.sin(0);            // = 0 - sine
-Math.cos(Math.PI);      // OTHERS: tan,atan,asin,acos,
-Math.min(0, 3, -2, 2);  // = -2 - the lowest value
-Math.max(0, 3, -2, 2);  // = 3 - the highest value
-Math.log(1);            // = 0 natural logarithm 
-Math.exp(1);            // = 2.7182pow(E,x)
-Math.random();          // random number between 0 and 1
-Math.floor(Math.random() * 5) + 1;  // random integer, from 1 to 5
 
-Math.E        // returns Euler's number
-Math.PI       // returns PI
-Math.SQRT2    // returns the square root of 2
-Math.SQRT1_2  // returns the square root of 1/2
-Math.LN2      // returns the natural logarithm of 2
-Math.LN10     // returns the natural logarithm of 10
-Math.LOG2E    // returns base 2 logarithm of E
-Math.LOG10E   // returns base 10 logarithm of E
+```js
+var pi = Math.PI; // 3.141592653589793
+Math.round(4.4); // = 4 - rounded
+Math.round(4.5); // = 5
+Math.pow(2, 8); // = 256 - 2 to the power of 8
+Math.sqrt(49); // = 7 - square root
+Math.abs(-3.14); // = 3.14 - absolute, positive value
+Math.ceil(3.14); // = 4 - rounded up
+Math.floor(3.99); // = 3 - rounded down
+Math.sin(0); // = 0 - sine
+Math.cos(Math.PI); // OTHERS: tan,atan,asin,acos,
+Math.min(0, 3, -2, 2); // = -2 - the lowest value
+Math.max(0, 3, -2, 2); // = 3 - the highest value
+Math.log(1); // = 0 natural logarithm
+Math.exp(1); // = 2.7182pow(E,x)
+Math.random(); // random number between 0 and 1
+Math.floor(Math.random() * 5) + 1; // random integer, from 1 to 5
+
+Math.E; // returns Euler's number
+Math.PI; // returns PI
+Math.SQRT2; // returns the square root of 2
+Math.SQRT1_2; // returns the square root of 1/2
+Math.LN2; // returns the natural logarithm of 2
+Math.LN10; // returns the natural logarithm of 10
+Math.LOG2E; // returns base 2 logarithm of E
+Math.LOG10E; // returns base 10 logarithm of E
 ```
 
-
 # Classes
+
 Often we need to represent an idea or concept in our programs — maybe a car engine, a computer file, a router, or a temperature reading. Representing these concepts directly in code comes in two parts: data to represent the state, and functions to represent the behavior. ES6 classes give us a convenient syntax for defining the state and behavior of objects that will represent our concepts.
 
 ```js
@@ -563,6 +576,7 @@ const person1 = new Person("Jessica");
 ```
 
 # Inheritance
+
 ```js
 class Person {
   constructor(name) {
@@ -588,91 +602,90 @@ const teacher = new Teacher("Andrew", "Bachelors");
 ```
 
 # The DOM
+
 ```js
 // It is important to CACHE selectors in variables
-let element = document.querySelector('#Id');
+let element = document.querySelector("#Id");
 
-let element = document.getElementsByTagName('tag')
-let element = document.getElementsByClassName('class')
-let element = document.getElementById('id')
+let element = document.getElementsByTagName("tag");
+let element = document.getElementsByClassName("class");
+let element = document.getElementById("id");
 
-let element = document.querySelector('#id')
-let element = document.querySelector('.class')
-let element = document.querySelector('tag')
+let element = document.querySelector("#id");
+let element = document.querySelector(".class");
+let element = document.querySelector("tag");
 
-let element = document.querySelectorAll('#id')
-let element = document.querySelectorAll('.class')
-let element = document.querySelectorAll('tag')
+let element = document.querySelectorAll("#id");
+let element = document.querySelectorAll(".class");
+let element = document.querySelectorAll("tag");
 
 // returns the DOM node's parent Element, or null if the node either has no parent, or its parent isn't a DOM Element.
-let parentElement = node.parentElement
+let parentElement = node.parentElement;
 
 // returns the parent of the specified node in the DOM tree.
-let parentNode = node.parentNode
+let parentNode = node.parentNode;
 
-// returns first child of the node or null 
-let childNode = node.firstChild
+// returns first child of the node or null
+let childNode = node.firstChild;
 
 // returns last child of the node or null
-let childNode = node.lastChild
+let childNode = node.lastChild;
 
 // returns NodeList of child nodes of the given element
-let nodeList = elementNodeReference.childNodes
+let nodeList = elementNodeReference.childNodes;
 
 // returns the node immediately following the specified one in their parent's childNodes, or returns null if the specified node is the last child in the parent element.
-let nextNode = node.nextSibling
+let nextNode = node.nextSibling;
 
 // returns the node immediately preceding the specified one in its parent's childNodes list, or null if the specified node is the first in that list.
-let previousNode = node.previousSibling
-
+let previousNode = node.previousSibling;
 
 // returns the value of the attribute
-element.getAttribute('elementAttribute')
-// sets the value of the 
-element.setAttribute('attributeName','attributeValue')
+element.getAttribute("elementAttribute");
+// sets the value of the
+element.setAttribute("attributeName", "attributeValue");
 // returns true if attribute exists
-element.hasAttribute('attributeName')
+element.hasAttribute("attributeName");
 // removes the specified atrribute
-element.removeAttribute('attributeName')
+element.removeAttribute("attributeName");
 
 // set the value of a style property
-element.style.CSSproperty = 'value' 
+element.style.CSSproperty = "value";
 
 // Adds the specified class values. If these classes already exist in the element's class attribute they are ignored.
-element.classList.add( 'ClassName1', 'ClassNameN')
+element.classList.add("ClassName1", "ClassNameN");
 
 // Removes the specified class values.
-element.classList.remove( 'ClassName1', 'ClassNameN')
+element.classList.remove("ClassName1", "ClassNameN");
 
 // Removes a given class from the list and returns false. If class doesn't exist it's added and the function returns true.
-element.classList.toggle('class')
+element.classList.toggle("class");
 
 // returns an iterator for the classList to use with the 'for of' loop
-element.classList.entries()
+element.classList.entries();
 
 // calls the callback function once for each value pair in the list, in insertion order. listObj is the array that forEach is being applied to.
 element.classList.forEach((currValue, currIndex, listObj) => {
   console.log(currValue, currIndex);
-})
+});
 
 // returns an iterator of all the keys contained in the object
-element.classList.keys()
+element.classList.keys();
 
 // returns an iterator of all the key value pairs in the object
-element.classList.values()
+element.classList.values();
 
 // returns true is the list contains the given class
-element.classList.contains('className')
+element.classList.contains("className");
 
 // returns true if replaced successfully
-element.classList.replace('oldClass', 'newClass')
+element.classList.replace("oldClass", "newClass");
 
-
-// returns the new element 
-let newElement = document.createElement('htmlTag');
+// returns the new element
+let newElement = document.createElement("htmlTag");
 
 // returns text node object
-let newTextNode = document.createTextNode('data');
+let newTextNode = document.createTextNode("data");
 
 // appends a node as the last child of a node
 newElement.appendChild(newTextNode);
@@ -684,62 +697,65 @@ newElement.insertBefore(newTextNode, newElement.childNodes[0]);
 var html = elem.innerHTML;
 
 // Set HTML content. Replaces all the content.
-elem.innerHTML = 'We can dynamically change the HTML. We can even include HTML elements like <a href="#">this link</a>.';
+elem.innerHTML =
+  'We can dynamically change the HTML. We can even include HTML elements like <a href="#">this link</a>.';
 
 // Add HTML to the end of an element's existing content
-elem.innerHTML += ' Add this after what is already there.';
+elem.innerHTML += " Add this after what is already there.";
 
 // Add HTML to the beginning of an element's existing content
-elem.innerHTML = 'We can add this to the beginning. ' + elem.innerHTML;
+elem.innerHTML = "We can add this to the beginning. " + elem.innerHTML;
 
 // Get text content
 var text = elem.textContent;
 
 // Set text content
-elem.textContent = 'We can dynamically change the content.';
+elem.textContent = "We can dynamically change the content.";
 
 // Add text to the end of an element's existing content
-elem.textContent += ' Add this after what is already there.';
+elem.textContent += " Add this after what is already there.";
 
 // Add text to the beginning of an element's existing content
-elem.textContent = 'We can add this to the beginning. ' + elem.textContent;
-
+elem.textContent = "We can add this to the beginning. " + elem.textContent;
 
 // innerHTML vs textContent vs innerText vs nodeValue
-innerHTML   // parses content as HTML, so it takes longer.
-nodeValue   // uses straight text, does not parse HTML, and is faster.
-textContent // uses straight text, does not parse HTML, and is faster.
-innerText   // takes styles into consideration. It won't get hidden text for instance.
+innerHTML; // parses content as HTML, so it takes longer.
+nodeValue; // uses straight text, does not parse HTML, and is faster.
+textContent; // uses straight text, does not parse HTML, and is faster.
+innerText; // takes styles into consideration. It won't get hidden text for instance.
 ```
 
 # JSON
+
 ## Data types that can be used with JSON
-* Number: no difference between integer and float
-* String: string of Unicode characters. Use "DOUBLE" quotes
-* Boolean: true or false
-* Array: ordered list of 0 or more values
-* Object: unordered collection of key/value pairs
-* Null: empty value
+
+- Number: no difference between integer and float
+- String: string of Unicode characters. Use "DOUBLE" quotes
+- Boolean: true or false
+- Array: ordered list of 0 or more values
+- Object: unordered collection of key/value pairs
+- Null: empty value
 
 ## Syntax Rules
-* Uses key/value pairs - {"name" : "Andrew"}
-* Uses double quotes around key and value
-* Must use data types specified above
-* File type is ".json"
-* MIME type is "Application/json"
+
+- Uses key/value pairs - {"name" : "Andrew"}
+- Uses double quotes around key and value
+- Must use data types specified above
+- File type is ".json"
+- MIME type is "Application/json"
 
 ## JSON Example
-```js
 
+```js
 let person = {
-  "Name":"Andrew Martinez",
-  "Age": 30,
-  "Address": {
-    "Street": "4100 Road St.",
-    "City": "Los Angeles"
+  Name: "Andrew Martinez",
+  Age: 30,
+  Address: {
+    Street: "4100 Road St.",
+    City: "Los Angeles"
   },
-  "Children": ["Ethan","Anya"]
-}
+  Children: ["Ethan", "Anya"]
+};
 
 // turns JS object into a properly formatted JSON object
 let jsonObject = JSON.stringify(person);
@@ -749,8 +765,10 @@ let jsObject = JSON.parse(jsonObject);
 ```
 
 ## JSON file
+
 remember: file type is .json
 File: people.json
+
 ```json
 {
   "people": [
@@ -771,15 +789,15 @@ File: people.json
 ```
 
 ## Making a Request to a JSON File
+
 ```js
 let xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
-  if (this.readyState = 4 && this.status == 200) {
-
+  if ((this.readyState = 4 && this.status == 200)) {
     // the response is stored in xhttp.responseText
     // we use JSON.parse() to turn the JSON object into a JS object we can work with.
     let response = JSON.parse(xhttp.responseText);
-    
+
     // Your code here. Do whatever you want with the data
     console.log(response);
   }
@@ -790,30 +808,34 @@ xhttp.open("GET", "jsonFileURL.json", true);
 xhttp.send();
 ```
 
-
 # AJAX
+
 ## What is Ajax?
-* Asynchronous JavaScript And XML
-* It is a set of technologies to send and receive data from a client to a server asynchronously
-* Does not interfere with the current web page
-* JSON has replaced XML for the most part
+
+- Asynchronous JavaScript And XML
+- It is a set of technologies to send and receive data from a client to a server asynchronously
+- Does not interfere with the current web page
+- JSON has replaced XML for the most part
 
 ## XmlHttpRequest (XHR) Object
-* API in the form of an object, meaning it has properties and methods
-* Provided by the browser's JS environment
-* Methods transfer data between client and server
-* Can be used with protocols other than HTTP
-* Can work with data other than XML (JSON, plain text)
+
+- API in the form of an object, meaning it has properties and methods
+- Provided by the browser's JS environment
+- Methods transfer data between client and server
+- Can be used with protocols other than HTTP
+- Can work with data other than XML (JSON, plain text)
 
 ## Libraries and Other Methods to Make Ajax Calls
-* jQuery
-* Axios
-* Superagent
-* Fetch API
-* Prototype
-* Node HTTP
+
+- jQuery
+- Axios
+- Superagent
+- Fetch API
+- Prototype
+- Node HTTP
 
 ## Example 1: Ajax Reuest to a Text File
+
 ```HTML
 <!DOCTYPE html>
 <html lang="en">
@@ -834,7 +856,7 @@ xhttp.send();
     function loadText() {
       // Create XHR object
       let xhr = new XMLHttpRequest();
-      
+
       // OPEN - type, url/file name, async
       xhr.open("GET", 'sample.txt', true);
 
@@ -864,8 +886,11 @@ xhttp.send();
 </body>
 </html>
 ```
+
 ## Example 2 - Ajax request to a local JSON file
+
 ---
+
 ```HTML
 <!DOCTYPE html>
 <html lang="en">
@@ -933,6 +958,7 @@ xhttp.send();
 ```
 
 ## Example 3 - Ajax request to external API
+
 ```HTML
 <!DOCTYPE html>
 <html lang="en">
