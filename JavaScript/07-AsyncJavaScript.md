@@ -214,4 +214,39 @@ console.log("aloha!");
 
 # Parallel, Sequence, Race
 
+When we have multiple promises we want to think about how we want to deal with them.
+
+```js
+// Let's pretend this is out set of promises
+const a = () => fetchSomething();
+const b = () => fetchSomething();
+const c = () => fetchSomething();
+```
+
+We can process them in parallel where we run them all at the same time
+
+```js
+async function parallel() {
+  const promises = [a(), b(), c()];
+  const [output1, output2, output3] = await Promise.all(promises);
+}
+```
+
+we can run the promises in sequence where we wait for a promise to return before we move on to the next one
+
+```js
+async function sequence() {
+  const output1 = await a();
+  const output2 = await b();
+  const output3 = await c();
+}
+```
+
+We can use Promise.race(promises) to return the first promise that finishes and the rest are thrown out.
+
+```js
+const promises = [a(), b(), c()];
+const output1 = await Promise.race(promises);
+```
+
 # Threads, Concurrency, Parallelism
